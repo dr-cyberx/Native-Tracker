@@ -1,8 +1,9 @@
-import './models/Users';
+import "./models/Users";
 import Express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoute from "./routes/authRoutes";
+import requireAuth from "./middlewares/requireAuth";
 
 const app = Express();
 
@@ -25,8 +26,8 @@ const Server = async () => {
       })
     );
 
-  app.get("/", (req, res) => {
-    res.send("Hello world");
+  app.get("/", requireAuth, (req, res) => {
+    res.send(`your Email : ${req.user.email}`);
   });
 };
 
