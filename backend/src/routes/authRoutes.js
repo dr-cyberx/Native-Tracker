@@ -12,10 +12,18 @@ authRoute.post("/signup", async (req, res) => {
     const newUser = new User({ email, password });
     await newUser.save();
 
-    const token = jwt.sign({userId: newUser._id}, 'MY_SECRET_KEY');
-    res.send({token});
+    const token = jwt.sign({ userId: newUser._id }, "MY_SECRET_KEY");
+    res.send({ token });
   } catch (err) {
     return res.status(422).send(err.message);
+  }
+});
+
+authRoute.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(422).send({ errMessage: "must provide Email & Password" });
   }
 });
 
