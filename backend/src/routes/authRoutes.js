@@ -29,17 +29,19 @@ authRoute.post("/signin", async (req, res) => {
   }
 
   const foundUser = await User.findOne({ email });
+  // console.log("found User", foundUser);
 
   if (!foundUser) {
     return res.status(402).send({ errMessage: "Invalid Email or password" });
   }
 
   try {
-    await User.comparePassword(password);
+    await foundUser.comparePassword(password);
     const token = jwt.sign({ userId: foundUser._id }, "MY_SECRET_KEY");
-    res.send({token})
+    res.send({ token });
   } catch (err) {
-    return res.status(422).send({ errMessage: "Invalid Email or password" });
+    console.log(">>>>>>>>>>>>>>>", err)
+    return res.status(422).send({ errMessage: "Invalid Email or password niche vala" });
   }
 });
 
