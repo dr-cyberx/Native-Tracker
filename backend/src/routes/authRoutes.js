@@ -23,7 +23,23 @@ authRoute.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(422).send({ errMessage: "must provide Email & Password" });
+    return res
+      .status(422)
+      .send({ errMessage: "must provide Email & Password" });
+  }
+
+  const foundUser = await User.findOne({ email });
+
+  if (!foundUser) {
+    return res.status(402).send({ errMessage: "Invalid Email or password" });
+  }
+
+  try {
+    await User.comparePassword(password);
+    const token = jwt.sign({ userId: foundUser._id }, "MY_SECRET_KEY");
+    res.send({token})
+  } catch (err) {
+    return res.status(422).send({ errMessage: "Invalid Email or password" });
   }
 });
 
