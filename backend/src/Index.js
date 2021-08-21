@@ -29,6 +29,7 @@ const Server = async () => {
   app.get("/", requireAuth, (req, res) => {
     res.send(`your Email : ${req.user.email}`);
   });
+  
 };
 
 Server();
