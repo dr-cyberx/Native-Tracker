@@ -4,11 +4,13 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoute from "./routes/authRoutes";
 import requireAuth from "./middlewares/requireAuth";
+import trackRoute from "./routes/trackRoute";
 
 const app = Express();
 
 app.use(bodyParser.json());
 app.use(authRoute);
+app.use(trackRoute);
 
 const mongoUri = `mongodb+srv://admin:admin@cluster0.bmlt0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
