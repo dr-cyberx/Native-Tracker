@@ -10,6 +10,7 @@ import SignupScreen from "./src/screens/SignupScreen";
 import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import AccountScreen from "./src/screens/AccountScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -17,8 +18,8 @@ const HomeStack = createNativeStackNavigator();
 const MainScreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Create" component={TrackCreateScreen} />
-      <Tab.Screen name="Detail" component={TrackDetailScreen} />
+      <Tab.Screen name="trackListFlow" component={TrackListScreen} />
+      <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );
