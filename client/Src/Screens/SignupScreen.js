@@ -1,19 +1,34 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export default function SigninScreen({navigation}) {
+const SignupScreen = ({ navigation }) => {
   return (
     <View>
-      <Text style={{ fontSize: 22 }}>Sign up Screen</Text>
+      <Text>Sign up Screen</Text>
       <TouchableOpacity
-        onPress={()=>{
-          navigation.navigate('authpage', {}, { screen: 'signin' })
+        onPress={() => {
+          navigation.navigate("SignIn");
         }}
       >
-        <Text style={{ fontSize: 16, color: "lightblue" }}>Go to sign In</Text>
+        <Text style={{ fontSize: 22, color: "lightblue", textAlign: "center" }}>
+          Go to Sign In
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ marginTop: 20 }}
+        onPress={() => {
+          navigation.navigate("Home", { screen: "Create" });
+        }}
+      >
+        <Text style={{ fontSize: 22, color: "blue", textAlign: "center" }}>
+          Go Main Screen
+        </Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default SignupScreen;
 
 const styles = StyleSheet.create({});

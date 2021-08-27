@@ -1,12 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from "react-native";
 
-export default function TrackDetailScreen() {
+const TrackDetailScreen = () => {
   return (
     <View>
-      <Text>Track Details Screen</Text>
+      <Text>TrackDetailScreen</Text>
     </View>
-  )
-}
+  );
+};
 
-const styles = StyleSheet.create({})
+export default TrackDetailScreen;
+
+const styles = StyleSheet.create({});

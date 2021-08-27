@@ -1,20 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   return (
     <View>
-      <Text style={{ fontSize: 22 }}>This is Home Screen</Text>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("creds", { screen: "signIn" });
-        }}
-      >
-        <Text style={{ fontSize: 22 }}>Goto signIn</Text>
-      </TouchableOpacity>
+      <Text>Home Screen</Text>
     </View>
   );
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({});
