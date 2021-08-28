@@ -21,6 +21,7 @@ const SignupScreen = ({ navigation }) => {
         autoCorrect={false}
       />
       <Input
+      secureTextEntry
         label="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
@@ -44,10 +45,9 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 10,
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     marginBottom: 200,
   },
 });
