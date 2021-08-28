@@ -1,13 +1,25 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function TrackCreateScreen() {
+const TrackCreateScreen = ({ navigation }) => {
   return (
     <View>
       <Text>Track Create Screen</Text>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Account");
+        }}
+      >
+        <Text style={{ fontSize: 25, color: "lightblue" }}>
+          Go to Account Screen
+        </Text>
+      </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
-const styles = StyleSheet.create({})
+export default TrackCreateScreen;
 
+const styles = StyleSheet.create({});

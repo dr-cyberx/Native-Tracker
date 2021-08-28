@@ -1,19 +1,55 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text, Button, Input } from "react-native-elements";
+import Spacer from "../components/Spacer";
+import HorSpacer from "../components/HorSpacer";
 
-export default function SigninScreen({navigation}) {
+const SignupScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <View>
-      <Text style={{ fontSize: 22 }}>Sign up Screen</Text>
-      <TouchableOpacity
-        onPress={()=>{
-          navigation.navigate('authpage', {}, { screen: 'signin' })
-        }}
-      >
-        <Text style={{ fontSize: 16, color: "lightblue" }}>Go to sign In</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <Spacer>
+        <Text h3>Sign Up for Tracker</Text>
+      </Spacer>
+      <Spacer />
+      <Input
+        label="Email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Input
+      secureTextEntry
+        label="Password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <HorSpacer>
+        <Button
+          titleStyle={{ fontSize: 22, textAlign: "center" }}
+          buttonStyle={{marginTop: 20}}
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+          title="Sign Up"
+        />
+      </HorSpacer>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({});
+export default SignupScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 25,
+    marginBottom: 200,
+  },
+});

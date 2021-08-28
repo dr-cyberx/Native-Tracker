@@ -1,14 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const AccountScreen = () => {
+const AccountScreen = ({ navigation }) => {
   return (
     <View>
       <Text>Account Screen</Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("trackListFlow");
+        }}
+      >
+        <Text style={{ fontSize: 25, color: "lightblue" }}>
+          Go To TrackListScreen
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
-
 export default AccountScreen;
+
+const styles = StyleSheet.create({});

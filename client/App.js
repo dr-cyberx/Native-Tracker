@@ -1,36 +1,50 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { StyleSheet, Text, View } from "react-native";
-import SigninScreen from "./Src/Screens/SigninScreen";
-import SignupScreen from "./Src/Screens/SignupScreen";
-import TrackCreateScreen from "./Src/Screens/TrackCreateScreen";
-import TrackDetailScreen from "./Src/Screens/TrackDetailScreen";
-import TrackListScreen from "./Src/Screens/TrackListScreen";
-import AccountScreen from "./Src/Screens/AccountScreen";
-import HomeScreen from "./Src/Screens/HomeScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import SigninScreen from "./src/screens/SigninScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import TrackCreateScreen from "./src/screens/TrackCreateScreen";
+import TrackDetailScreen from "./src/screens/TrackDetailScreen";
+import AccountScreen from "./src/screens/AccountScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
 
-const Stack = createNativeStackNavigator();
-const MaterialBottomTabs = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
 
-function HomeTab() {
+const MainScreen = () => {
   return (
-    <MaterialBottomTabs.Navigator>
-      <MaterialBottomTabs.Screen name="signIn" component={SigninScreen} />
-      <MaterialBottomTabs.Screen name="sipnUp" component={SignupScreen} />
-    </MaterialBottomTabs.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="trackListFlow" component={TrackListScreen} />
+      <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
+    </Tab.Navigator>
   );
-}
+};
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator >
-        <Stack.Screen name="Home" children={HomeScreen} />
-        <Stack.Screen name="creds" options={{ headerShown: false }} component={HomeTab} />
-      </Stack.Navigator>
+      <HomeStack.Navigator>
+        <HomeStack.Screen
+          options={{ headerShown: false }}
+          name="SignUp"
+          component={SignupScreen}
+        />
+        <HomeStack.Screen
+          options={{ headerShown: false }}
+          name="SignIn"
+          component={SigninScreen}
+        />
+        <HomeStack.Screen
+          options={{ headerShown: false }}
+          name="Home"
+          children={MainScreen}
+        />
+      </HomeStack.Navigator>
     </NavigationContainer>
   );
 }
