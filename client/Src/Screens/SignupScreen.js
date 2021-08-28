@@ -1,34 +1,53 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text, Button, Input } from "react-native-elements";
+import Spacer from "../components/Spacer";
+import HorSpacer from "../components/HorSpacer";
 
 const SignupScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>Sign up Screen</Text>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("SignIn");
-        }}
-      >
-        <Text style={{ fontSize: 22, color: "lightblue", textAlign: "center" }}>
-          Go to Sign In
-        </Text>
-      </TouchableOpacity>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-      <TouchableOpacity
-        style={{ marginTop: 20 }}
-        onPress={() => {
-          navigation.navigate("Home", { screen: "Create" });
-        }}
-      >
-        <Text style={{ fontSize: 22, color: "blue", textAlign: "center" }}>
-          Go Main Screen
-        </Text>
-      </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <Spacer>
+        <Text h3>Sign Up for Tracker</Text>
+      </Spacer>
+      <Input
+        label="Email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Input
+        label="Password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <HorSpacer>
+        <Button
+          titleStyle={{ fontSize: 22, textAlign: "center" }}
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+          title="Sign Up"
+        />
+      </HorSpacer>
     </View>
   );
 };
 
 export default SignupScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 10,
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    marginBottom: 200,
+  },
+});

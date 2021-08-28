@@ -29,8 +29,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <HomeStack.Navigator>
-        <HomeStack.Screen name="SignUp" component={SignupScreen} />
-        <HomeStack.Screen name="SignIn" component={SigninScreen} />
+        <HomeStack.Screen
+          options={{ headerShown: false }}
+          name="SignUp"
+          component={SignupScreen}
+        />
+        <HomeStack.Screen
+          options={{ headerShown: false }}
+          name="SignIn"
+          component={SigninScreen}
+        />
         <HomeStack.Screen
           options={{ headerShown: false }}
           name="Home"
