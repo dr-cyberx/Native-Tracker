@@ -13,6 +13,7 @@ const SignupScreen = ({ navigation }) => {
       <Spacer>
         <Text h3>Sign Up for Tracker</Text>
       </Spacer>
+      <Spacer />
       <Input
         label="Email"
         value={email}
@@ -31,6 +32,7 @@ const SignupScreen = ({ navigation }) => {
       <HorSpacer>
         <Button
           titleStyle={{ fontSize: 22, textAlign: "center" }}
+          buttonStyle={{marginTop: 20}}
           onPress={() => {
             navigation.navigate("SignIn");
           }}
