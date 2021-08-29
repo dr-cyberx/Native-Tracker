@@ -1,6 +1,7 @@
 import "./models/Users";
 import Express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import bodyParser from "body-parser";
 import authRoute from "./routes/authRoutes";
 import requireAuth from "./middlewares/requireAuth";
@@ -8,6 +9,11 @@ import trackRoute from "./routes/trackRoute";
 
 const app = Express();
 
+app.use(
+  cors({
+    origin: "*", //we can also put * to all any origin to access data
+  })
+);
 app.use(bodyParser.json());
 app.use(authRoute);
 app.use(trackRoute);
@@ -31,7 +37,6 @@ const Server = async () => {
   app.get("/", requireAuth, (req, res) => {
     res.send(`your Email : ${req.user.email}`);
   });
-  
 };
 
 Server();

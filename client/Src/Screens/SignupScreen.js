@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import HorSpacer from "../components/HorSpacer";
+import AuthContext from "../context/AuthContext";
 
 const SignupScreen = ({ navigation }) => {
+  const { state, signup } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // console.log(state);
 
   return (
     <View style={styles.container}>
@@ -22,7 +26,7 @@ const SignupScreen = ({ navigation }) => {
         autoCorrect={false}
       />
       <Input
-      secureTextEntry
+        secureTextEntry
         label="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
@@ -30,11 +34,17 @@ const SignupScreen = ({ navigation }) => {
         autoCorrect={false}
       />
       <HorSpacer>
+        {state.errMessage.length ? (
+          <Text style={styles.errMessage} h4>
+            {state.errMessage}
+          </Text>
+        ) : null}
         <Button
           titleStyle={{ fontSize: 22, textAlign: "center" }}
-          buttonStyle={{marginTop: 20}}
+          buttonStyle={{ marginTop: 20 }}
           onPress={() => {
-            navigation.navigate("SignIn");
+            // navigation.navigate("SignIn");
+            signup(email, password);
           }}
           title="Sign Up"
         />
@@ -51,5 +61,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 25,
     marginBottom: 200,
+  },
+  errMessage: {
+    color: "#e74c3c",
+    textAlign: "center",
   },
 });
