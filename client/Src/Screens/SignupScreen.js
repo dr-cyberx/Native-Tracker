@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Text, Button, Input } from "react-native-elements";
 import Spacer from "../components/Spacer";

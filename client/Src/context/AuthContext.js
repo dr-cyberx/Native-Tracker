@@ -10,6 +10,13 @@ const reducer = (state, action) => {
         ...state,
         errMessage: action.payload,
       };
+
+    case "signup":
+      return {
+        ...state,
+        errMessage: "",
+        token: action.payload,
+      };
     default:
       break;
   }
@@ -17,25 +24,26 @@ const reducer = (state, action) => {
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
-    isSignedIn: false,
+    token: null,
     errMessage: "",
   });
 
-  const signup = async (email, password ) => {
-
+  const signup = async (email, password) => {
     try {
       const response = await tracker.post("/signup", { email, password });
       // console.log(resonse)
-      console.log('try chla')
+      console.log("try chla");
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signup", payload: response.data.token });
+
     } catch (err) {
-      console.log('try ka catch bhi chla')
+      console.log("try ka catch bhi chla");
       // console.log("failed to signup:", err);
       dispatch({
         type: "add_Error",
         payload: "Something went wrong while Sign up",
       });
     }
-
   };
   const signin = ({ email, password }) => {};
   const signout = () => {};
