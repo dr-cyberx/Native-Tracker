@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { AuthProvider } from "./src/context/AuthContext";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -27,25 +28,27 @@ const MainScreen = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <HomeStack.Navigator>
-        <HomeStack.Screen
-          options={{ headerShown: false }}
-          name="SignUp"
-          component={SignupScreen}
-        />
-        <HomeStack.Screen
-          options={{ headerShown: false }}
-          name="SignIn"
-          component={SigninScreen}
-        />
-        <HomeStack.Screen
-          options={{ headerShown: false }}
-          name="Home"
-          children={MainScreen}
-        />
-      </HomeStack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <HomeStack.Navigator>
+          <HomeStack.Screen
+            options={{ headerShown: false }}
+            name="SignUp"
+            component={SignupScreen}
+          />
+          <HomeStack.Screen
+            options={{ headerShown: false }}
+            name="SignIn"
+            component={SigninScreen}
+          />
+          <HomeStack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            children={MainScreen}
+          />
+        </HomeStack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 

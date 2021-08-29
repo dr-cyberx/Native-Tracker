@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre("save", function (next) {
-  console.log("This => ", this);
+  // console.log("This => ", this);
   const user = this;
   if (!user.isModified("password")) {
     return next();
@@ -34,7 +34,7 @@ UserSchema.pre("save", function (next) {
 });
 
 UserSchema.methods.comparePassword = function (CandidatePassword) {
-  const user = this;
+  const user = this; 
   return new Promise((resolve, reject) => {
     compare(CandidatePassword, user.password, (err, isMatch) => {
       if (err) {
