@@ -1,34 +1,46 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View } from "react-native";
+import AuthForm from "../components/AuthForm";
+import NavLinks from "../components/NavLinks";
+import Spacer from "../components/Spacer";
+import AuthContext from "../context/AuthContext";
 
 const SigninScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>Sign in Screen</Text>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("SignUp");
-        }}
-      >
-        <Text style={{ fontSize: 22, color: "lightblue", textAlign: "center" }}>
-          Go to Sign Up
-        </Text>
-      </TouchableOpacity>
+  const { state, signup } = useContext(AuthContext);
 
-      <TouchableOpacity
-      style={{marginTop: 20}}
-        onPress={() => {
-          navigation.navigate("Home",{screen: 'Create'});
-        }}
-      >
-        <Text style={{ fontSize: 22, color: "blue", textAlign: "center" }}>
-          Go to Main Screen
-        </Text>
-      </TouchableOpacity>
+  // console.log(state);
+
+  return (
+    <View style={styles.container}>
+      <AuthForm
+        navigation={navigation}
+        headerText="Sign In from Tracker"
+        btnTitle="Sign In"
+        errorMessage={state.errMessage}
+        onSubmitCallback={({ email, password }) =>
+          signup({ email, password }, () => {
+            navigation.navigate("Home");
+          })
+        }
+      />
+
+      <Spacer />
+      <NavLinks
+        HeadTitle="Don't have a Account ?"
+        linkText="Sign Up here"
+        handlePress={() => navigation.navigate("SignUp")}
+      />
     </View>
   );
 };
 
 export default SigninScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 25,
+    marginBottom: 200,
+  },
+});
