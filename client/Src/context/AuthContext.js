@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import tracker from "../api/tracker";
 
 const AuthContext = createContext();
@@ -28,13 +29,17 @@ export const AuthProvider = ({ children }) => {
     errMessage: "",
   });
 
-  const signup = async (email, password) => {
+  const signup = async ({email, password}, callback) => {
     try {
       const response = await tracker.post("/signup", { email, password });
       // console.log(resonse)
       console.log("try chla");
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signup", payload: response.data.token });
+
+      if (callback) {
+        callback();
+      }
 
     } catch (err) {
       console.log("try ka catch bhi chla");
