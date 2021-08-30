@@ -3,13 +3,17 @@ import AuthContext from "../context/AuthContext";
 import { StyleSheet, Text, View } from "react-native";
 
 const FlashScreen = ({ navigation }) => {
-  const { localSignIn } = useContext(AuthContext);
+  const { localSignIn, showLoginScreen } = useContext(AuthContext);
 
   useEffect(() => {
     localSignIn(() => {
-      navigation.navigate("Home");
+      navigation.navigate("Home", { screen: "trackListFlow" });
+    });
+    showLoginScreen(() => {
+      navigation.navigate("SignIn");
     });
   }, []);
+
   return null;
 };
 

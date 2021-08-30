@@ -26,7 +26,7 @@ const SigninScreen = ({ navigation }) => {
         errorMessage={state.errMessage}
         onSubmitCallback={({ email, password }) =>
           signin({ email, password }, () => {
-            navigation.navigate("Home");
+            navigation.navigate("Home", { screen: "trackListFlow" });
           })
         }
       />
