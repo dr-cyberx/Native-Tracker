@@ -12,6 +12,7 @@ import TrackCreateScreen from "./src/Screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/Screens/TrackDetailScreen";
 import AccountScreen from "./src/Screens/AccountScreen";
 import TrackListScreen from "./src/Screens/TrackListScreen";
+import FlashScreen from "./src/Screens/FlashScreen";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -31,6 +32,11 @@ export default function App() {
     <AuthProvider>
       <NavigationContainer>
         <HomeStack.Navigator>
+          <HomeStack.Screen
+            options={{ headerShown: false }}
+            name="flashScreen"
+            component={FlashScreen}
+          />
           <HomeStack.Screen
             options={{ headerShown: false }}
             name="SignUp"

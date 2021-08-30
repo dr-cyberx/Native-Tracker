@@ -7,7 +7,7 @@ import Spacer from "../components/Spacer";
 import AuthContext from "../context/AuthContext";
 
 const SignupScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage } = useContext(AuthContext);
+  const { state, signup, clearErrorMessage, localSignIn } = useContext(AuthContext);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
