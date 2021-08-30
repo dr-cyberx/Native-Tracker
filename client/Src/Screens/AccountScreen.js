@@ -1,20 +1,26 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet } from "react-native";
+import AuthContext from "../context/AuthContext";
+import { Text, Button } from "react-native-elements";
+import Spacer from "../components/Spacer";
 
 const AccountScreen = ({ navigation }) => {
+  const { signout } = useContext(AuthContext);
   return (
-    <View>
-      <Text>Account Screen</Text>
-      <TouchableOpacity
+    <>
+      <Text h4 style={{ fontWeight: "bold" }}>
+        Account Screen
+      </Text>
+      <Spacer />
+      <Button
         onPress={() => {
-          navigation.navigate("trackListFlow");
+          signout(() => {
+            navigation.navigate("SignIn");
+          });
         }}
-      >
-        <Text style={{ fontSize: 25, color: "lightblue" }}>
-          Go To TrackListScreen
-        </Text>
-      </TouchableOpacity>
-    </View>
+        title="Sign Out"
+      />
+    </>
   );
 };
 

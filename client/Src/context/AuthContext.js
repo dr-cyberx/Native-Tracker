@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import tracker from "../api/tracker";
 
@@ -25,6 +25,17 @@ const reducer = (state, action) => {
         errMessage: "",
       };
 
+    case "signout":
+      return {
+        token: null,
+        errMessage: "",
+      };
+
+    case "showlogin":
+      return {
+        ...state,
+        showLogin: action.payload,
+      };
     default:
       break;
   }
@@ -34,6 +45,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     token: null,
     errMessage: "",
+    showLogin: false,
   });
 
   const signup = async ({ email, password }, callback) => {
@@ -73,7 +85,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signout = () => {};
+  const signout = async (callback) => {
+    await AsyncStorage.removeItem("token");
+    dispatch({ type: "signout" });
+    if (callback) {
+      callback();
+    }
+  };
 
   const clearErrorMessage = () => {
     dispatch({ type: "clear_Error_Message" });
@@ -82,16 +100,25 @@ export const AuthProvider = ({ children }) => {
   const localSignIn = async (callback) => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
+      dispatch({ type: "showlogin", payload: false });
       dispatch({ type: "signup", payload: token });
       if (callback) {
         callback();
       }
+    } else {
+      dispatch({ type: "showlogin", payload: true });
+    }
+  };
+
+  const showLoginScreen = (callback) => {
+    if (callback) {
+      callback();
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{ signin, signup, signout, state, clearErrorMessage, localSignIn }}
+      value={{ signin, signup, signout, state, clearErrorMessage, localSignIn, showLoginScreen }}
     >
       {children}
     </AuthContext.Provider>
