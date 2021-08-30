@@ -6,9 +6,15 @@ import Spacer from "../components/Spacer";
 import AuthContext from "../context/AuthContext";
 
 const SigninScreen = ({ navigation }) => {
-  const { state, signup } = useContext(AuthContext);
+  const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
-  // console.log(state);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      clearErrorMessage();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -18,7 +24,7 @@ const SigninScreen = ({ navigation }) => {
         btnTitle="Sign In"
         errorMessage={state.errMessage}
         onSubmitCallback={({ email, password }) =>
-          signup({ email, password }, () => {
+          signin({ email, password }, () => {
             navigation.navigate("Home");
           })
         }
