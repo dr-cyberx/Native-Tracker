@@ -79,9 +79,19 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "clear_Error_Message" });
   };
 
+  const localSignIn = async (callback) => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      dispatch({ type: "signup", payload: token });
+      if (callback) {
+        callback();
+      }
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ signin, signup, signout, state, clearErrorMessage }}
+      value={{ signin, signup, signout, state, clearErrorMessage, localSignIn }}
     >
       {children}
     </AuthContext.Provider>
