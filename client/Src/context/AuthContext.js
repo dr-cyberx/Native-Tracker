@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import tracker from "../api/tracker";
 
 const AuthContext = createContext();
@@ -18,6 +18,13 @@ const reducer = (state, action) => {
         errMessage: "",
         token: action.payload,
       };
+
+    case "clear_Error_Message":
+      return {
+        ...state,
+        errMessage: "",
+      };
+
     default:
       break;
   }
@@ -29,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     errMessage: "",
   });
 
-  const signup = async ({email, password}, callback) => {
+  const signup = async ({ email, password }, callback) => {
     try {
       const response = await tracker.post("/signup", { email, password });
       // console.log(resonse)
@@ -40,7 +47,6 @@ export const AuthProvider = ({ children }) => {
       if (callback) {
         callback();
       }
-
     } catch (err) {
       console.log("try ka catch bhi chla");
       // console.log("failed to signup:", err);
@@ -50,11 +56,33 @@ export const AuthProvider = ({ children }) => {
       });
     }
   };
-  const signin = ({ email, password }) => {};
+
+  const signin = async ({ email, password }, callback) => {
+    try {
+      const response = await tracker.post("/signin", { email, password });
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signup", payload: response.data.token });
+      if (callback) {
+        callback();
+      }
+    } catch (err) {
+      dispatch({
+        type: "add_Error",
+        payload: "Something went wrong while Sign in",
+      });
+    }
+  };
+
   const signout = () => {};
 
+  const clearErrorMessage = () => {
+    dispatch({ type: "clear_Error_Message" });
+  };
+
   return (
-    <AuthContext.Provider value={{ signin, signup, signout, state }}>
+    <AuthContext.Provider
+      value={{ signin, signup, signout, state, clearErrorMessage }}
+    >
       {children}
     </AuthContext.Provider>
   );
