@@ -22,7 +22,11 @@ const MainScreen = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="trackListFlow" component={TrackListScreen} />
-      <Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="TrackCreate"
+        component={TrackCreateScreen}
+      />
       <Tab.Screen
         options={{ headerShown: false }}
         name="Account"
