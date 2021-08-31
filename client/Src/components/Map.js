@@ -11,14 +11,19 @@ const Map = () => {
   const [err, setErr] = useState(null);
 
   const startWatching = async () => {
-    try {
-      await requestForegroundPermissionsAsync();
-    } catch (e) {
-      setErr(e);
+    let { status } = await requestForegroundPermissionsAsync();
+
+    if (status !== "granted") {
+      setErr("Permission to access location was denied");
+      return;
     }
+
+    console.log(status);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    startWatching();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -27,6 +32,8 @@ const Map = () => {
       </HorSpacer>
       <Spacer />
       <MapView style={styles.Map} />
+      <Spacer />
+      {err ? <Text h3>Please Enable Location Permission</Text> : null}
     </View>
   );
 };
