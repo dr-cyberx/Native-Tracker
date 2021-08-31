@@ -16,7 +16,15 @@ export const LocationProvider = ({ children }) => {
     recording: "",
   });
 
-  return <LocationContext>{children}</LocationContext>;
+  const startRecording = () => {};
+  const stopRecording = () => {};
+  const addLocations = () => {};
+
+  return (
+    <LocationContext value={{ startRecording, stopRecording, addLocations }}>
+      {children}
+    </LocationContext>
+  );
 };
 
 export default LocationContext;
