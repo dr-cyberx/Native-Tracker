@@ -10,10 +10,10 @@ const reducer = (state, action) => {
 };
 
 export const LocationProvider = ({ children }) => {
-  const { state, dispatch } = useReducer(reducer, {
-    currentLocation: "",
-    locations: "",
-    recording: "",
+  const [state, dispatch] = useReducer(reducer, {
+    currentLocation: null,
+    locations: [],
+    recording: false,
   });
 
   const startRecording = () => {};
@@ -21,9 +21,11 @@ export const LocationProvider = ({ children }) => {
   const addLocations = () => {};
 
   return (
-    <LocationContext value={{ startRecording, stopRecording, addLocations }}>
+    <LocationContext.Provider
+      value={{ startRecording, stopRecording, addLocations }}
+    >
       {children}
-    </LocationContext>
+    </LocationContext.Provider>
   );
 };
 
