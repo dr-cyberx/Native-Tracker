@@ -2,28 +2,37 @@ import React, { createContext, useReducer } from "react";
 
 const LocationContext = createContext();
 
-const reducer = (state, action) => {
+const locationReducer = (state, action) => {
   switch (action.type) {
+    case "add_current_location":
+      return {
+        ...state,
+        currentLocation: action.payload,
+      };
     default:
       break;
   }
 };
 
 export const LocationProvider = ({ children }) => {
-  const { state, dispatch } = useReducer(reducer, {
-    currentLocation: "",
-    locations: "",
-    recording: "",
+  const [state, dispatch] = useReducer(locationReducer, {
+    currentLocation: null,
+    locations: [],
+    recording: false,
   });
 
   const startRecording = () => {};
   const stopRecording = () => {};
-  const addLocations = () => {};
+  const addLocations = (location) => {
+    dispatch({ type: "add_current_location", payload: location });
+  };
 
   return (
-    <LocationContext value={{ startRecording, stopRecording, addLocations }}>
+    <LocationContext.Provider
+      value={{ startRecording, stopRecording, addLocations, state }}
+    >
       {children}
-    </LocationContext>
+    </LocationContext.Provider>
   );
 };
 

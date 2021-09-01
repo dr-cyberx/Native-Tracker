@@ -1,54 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Text } from "react-native-elements";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
   watchPositionAsync,
   Accuracy,
 } from "expo-location";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polyline, Circle } from "react-native-maps";
+import LocationContext from "../context/LocationContext";
 import HorSpacer from "./HorSpacer";
-
 import Spacer from "./Spacer";
 
 const Map = () => {
-  const [err, setErr] = useState(null);
-  const [location, setLocation] = useState();
+  const { state } = useContext(LocationContext);
+  const { currentLocation } = state;
 
-  const startWatching = async () => {
-    try {
-      let { status } = await requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErr("Permission to access location was denied");
-        return;
-      }
-      await watchPositionAsync(
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 1000,
-          distanceInterval: 10,
-        },
-        (loc) => {
-          console.log(">>>>>><<<<<>>>>>", loc);
-        }
-      );
-      // // setInterval(async () => {
-      // let locationX = await getCurrentPositionAsync({});
-      // setLocation(locationX);
-      // }, 1000);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  if (!currentLocation) {
+    return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
+  }
 
-  useEffect(() => {
-    console.log("this is users location", location);
-  }, [location]);
-
-  useEffect(() => {
-    startWatching();
-  }, []);
+  console.log("This is state inside the map comp ", state);
 
   return (
     <View style={styles.container}>
@@ -56,11 +28,29 @@ const Map = () => {
         <Text h1>Create Track</Text>
       </HorSpacer>
       <Spacer />
-      <MapView style={styles.Map}>
-        <Polyline />
+      <MapView
+        style={styles.Map}
+        initialRegion={{
+          ...currentLocation.coords,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        region={{
+          ...currentLocation.coords,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+      >
+        <Circle
+          center={currentLocation.coords}
+          radius={30}
+          strokeColor="rgba(158,158,255,1.0)"
+          fillColor="rgba(158, 158, 255, 0.3)"
+        />
+        {/* <Polyline /> */}
       </MapView>
       <Spacer />
-      {err ? <Text h3>Please Enable Location Permission</Text> : null}
+      {/* {err ? <Text h3>Please Enable Location Permission</Text> : null} */}
     </View>
   );
 };
