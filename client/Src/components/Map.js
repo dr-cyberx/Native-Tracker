@@ -7,7 +7,7 @@ import {
   watchPositionAsync,
   Accuracy,
 } from "expo-location";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Polyline, Circle } from "react-native-maps";
 import LocationContext from "../context/LocationContext";
 import HorSpacer from "./HorSpacer";
 import Spacer from "./Spacer";
@@ -41,6 +41,12 @@ const Map = () => {
           longitudeDelta: 0.01,
         }}
       >
+        <Circle
+          center={currentLocation.coords}
+          radius={30}
+          strokeColor="rgba(158,158,255,1.0)"
+          fillColor="rgba(158, 158, 255, 0.3)"
+        />
         {/* <Polyline /> */}
       </MapView>
       <Spacer />
