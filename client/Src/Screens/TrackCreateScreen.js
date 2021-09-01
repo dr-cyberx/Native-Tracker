@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import MapView, { Polyline } from "react-native-maps";
 import LocationContext from "../context/LocationContext";
 import { StyleSheet, View } from "react-native";
@@ -8,10 +8,27 @@ import useLocation from "../../hooks/useLocation";
 import Map from "../components/Map";
 
 const TrackCreateScreen = ({ navigation }) => {
+  const [shouldTrack, setShouldTrack] = useState(true);
   const { addLocations } = useContext(LocationContext);
-  const [err] = useLocation((loc) => addLocations(loc));
+  const [err] = useLocation(shouldTrack, (loc) => addLocations(loc));
+
   // this code also may be like this
   // const [err] = useLocation(addLocations);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      setShouldTrack(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setShouldTrack(true);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <SafeAreaView

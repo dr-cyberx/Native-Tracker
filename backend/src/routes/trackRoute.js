@@ -14,9 +14,7 @@ trackRoute.get("/track", async (req, res) => {
 
 trackRoute.post("/track", async (req, res) => {
   const { name, locations } = req.body;
-
-  console.log("our req data => " ,req.user);
-
+  
   if (!name || !locations) {
     return res
       .status(422)

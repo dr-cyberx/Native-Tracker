@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await tracker.post("/signup", { email, password });
       // console.log(resonse)
-      console.log("try chla");
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signup", payload: response.data.token });
 
@@ -60,7 +59,6 @@ export const AuthProvider = ({ children }) => {
         callback();
       }
     } catch (err) {
-      console.log("try ka catch bhi chla");
       // console.log("failed to signup:", err);
       dispatch({
         type: "add_Error",

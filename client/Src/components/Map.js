@@ -20,8 +20,6 @@ const Map = () => {
     return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
   }
 
-  console.log("This is state inside the map comp ", state);
-
   return (
     <View style={styles.container}>
       <HorSpacer>
