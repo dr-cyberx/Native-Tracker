@@ -50,7 +50,7 @@ const Map = () => {
         {/* <Polyline /> */}
       </MapView>
       <Spacer />
-      {/* {err ? <Text h3>Please Enable Location Permission</Text> : null} */}
+      
     </View>
   );
 };
