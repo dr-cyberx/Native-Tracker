@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Text } from "react-native-elements";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
@@ -8,12 +8,19 @@ import {
   Accuracy,
 } from "expo-location";
 import MapView, { Polyline } from "react-native-maps";
+import LocationContext from "../context/LocationContext";
 import HorSpacer from "./HorSpacer";
-
 import Spacer from "./Spacer";
 
 const Map = () => {
- 
+  const { state } = useContext(LocationContext);
+  const { currentLocation } = state;
+
+  if (!currentLocation) {
+    return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
+  }
+
+  console.log("This is state inside the map comp ", state);
 
   return (
     <View style={styles.container}>
@@ -21,11 +28,23 @@ const Map = () => {
         <Text h1>Create Track</Text>
       </HorSpacer>
       <Spacer />
-      <MapView style={styles.Map}>
+      <MapView
+        style={styles.Map}
+        initialRegion={{
+          ...currentLocation.coords,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        region={{
+          ...currentLocation.coords,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+      >
         {/* <Polyline /> */}
       </MapView>
       <Spacer />
-      {err ? <Text h3>Please Enable Location Permission</Text> : null}
+      {/* {err ? <Text h3>Please Enable Location Permission</Text> : null} */}
     </View>
   );
 };

@@ -6,14 +6,14 @@ import {
   Accuracy,
 } from "expo-location";
 import MapView, { Polyline } from "react-native-maps";
-import AuthContext from "../context/AuthContext";
+import LocationContext from "../context/LocationContext";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "react-native-elements";
 import Map from "../components/Map";
 
 const TrackCreateScreen = ({ navigation }) => {
-  const { addLocations } = useContext(AuthContext);
+  const { addLocations } = useContext(LocationContext);
   const [err, setErr] = useState(null);
   const [location, setLocation] = useState();
 
@@ -31,7 +31,8 @@ const TrackCreateScreen = ({ navigation }) => {
           distanceInterval: 10,
         },
         (loc) => {
-          console.log(">>>>>><<<<<>>>>>", loc);
+          addLocations(loc);
+          // console.log(">>>>>><<<<<>>>>>", loc);
         }
       );
       // // setInterval(async () => {
