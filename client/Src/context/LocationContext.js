@@ -24,6 +24,7 @@ export const LocationProvider = ({ children }) => {
   const startRecording = () => {};
   const stopRecording = () => {};
   const addLocations = (location) => {
+    console.log("add location func is here sir g !");
     dispatch({ type: "add_current_location", payload: location });
   };
 
