@@ -8,16 +8,22 @@ import HorSpacer from "./HorSpacer";
 const TrackForm = () => {
   const { state, startRecording, stopRecording, changeName } =
     useContext(LocationContext);
+
+  const { name, recording } = state;
   return (
     <>
       <HorSpacer>
         <Input
-          value={state.name}
+          value={name}
           onChangeText={changeName}
           placeholder="Enter Name"
         />
         <Spacer />
-        <Button title="Start Recording" />
+        {recording ? (
+          <Button title="Stop Recording" onPress={stopRecording} />
+        ) : (
+          <Button title="Start Recording" onPress={startRecording} />
+        )}
       </HorSpacer>
     </>
   );
