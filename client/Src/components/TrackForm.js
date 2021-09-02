@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Input } from "react-native-elements";
+import LocationContext from "../context/LocationContext";
 import Spacer from "./Spacer";
 import HorSpacer from "./HorSpacer";
 
 const TrackForm = () => {
+  const { state, startRecording, stopRecording, changeName } =
+    useContext(LocationContext);
+
+  const { name, recording } = state;
   return (
     <>
       <HorSpacer>
-        <Input placeholder="Enter Name" />
+        <Input
+          value={name}
+          onChangeText={changeName}
+          placeholder="Enter Name"
+        />
         <Spacer />
-        <Button title="Start Recording" />
+        {recording ? (
+          <Button title="Stop Recording" onPress={stopRecording} />
+        ) : (
+          <Button title="Start Recording" onPress={startRecording} />
+        )}
       </HorSpacer>
     </>
   );

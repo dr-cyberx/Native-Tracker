@@ -19,6 +19,17 @@ const locationReducer = (state, action) => {
         ...state,
         recording: false,
       };
+    case "add_locations":
+      return {
+        ...state,
+        locations: [...state.location, action.payload],
+      };
+
+    case "change_name":
+      return {
+        ...state,
+        name: action.payload,
+      };
     default:
       break;
   }
@@ -29,22 +40,29 @@ export const LocationProvider = ({ children }) => {
     currentLocation: null,
     locations: [],
     recording: false,
+    name: "",
   });
 
+  const changeName = (name) => {
+    dispatch({ type: "change_name", payload: name });
+  };
   const startRecording = () => {
     dispatch({ type: "start_recording" });
   };
   const stopRecording = () => {
     dispatch({ type: "stop_recording" });
   };
-  const addLocations = (location) => {
+  const addLocations = (location, recording) => {
     console.log("add location func is here sir g !");
     dispatch({ type: "add_current_location", payload: location });
+    if (recording) {
+      dispatch({ type: "add_locations", payload: location });
+    }
   };
 
   return (
     <LocationContext.Provider
-      value={{ startRecording, stopRecording, addLocations, state }}
+      value={{ startRecording, stopRecording, addLocations, changeName, state }}
     >
       {children}
     </LocationContext.Provider>
