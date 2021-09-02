@@ -10,8 +10,10 @@ import Map from "../components/Map";
 
 const TrackCreateScreen = ({ navigation }) => {
   const [shouldTrack, setShouldTrack] = useState(true);
-  const { addLocations } = useContext(LocationContext);
-  const [err] = useLocation(shouldTrack, (loc) => addLocations(loc));
+  const { addLocations, state } = useContext(LocationContext);
+  const [err] = useLocation(shouldTrack, (loc) =>
+    addLocations(loc, state.recording)
+  );
 
   // this code also may be like this
   // const [err] = useLocation(addLocations);
