@@ -9,6 +9,16 @@ const locationReducer = (state, action) => {
         ...state,
         currentLocation: action.payload,
       };
+    case "start_recording":
+      return {
+        ...state,
+        recording: true,
+      };
+    case "stop_recording":
+      return {
+        ...state,
+        recording: false,
+      };
     default:
       break;
   }
@@ -21,8 +31,12 @@ export const LocationProvider = ({ children }) => {
     recording: false,
   });
 
-  const startRecording = () => {};
-  const stopRecording = () => {};
+  const startRecording = () => {
+    dispatch({ type: "start_recording" });
+  };
+  const stopRecording = () => {
+    dispatch({ type: "stop_recording" });
+  };
   const addLocations = (location) => {
     console.log("add location func is here sir g !");
     dispatch({ type: "add_current_location", payload: location });
