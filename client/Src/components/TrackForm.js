@@ -9,7 +9,9 @@ const TrackForm = () => {
   const { state, startRecording, stopRecording, changeName } =
     useContext(LocationContext);
 
-  const { name, recording } = state;
+  const { name, recording, locations } = state;
+
+  console.log(locations.length);
   return (
     <>
       <HorSpacer>

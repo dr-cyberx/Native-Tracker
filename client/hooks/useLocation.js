@@ -39,7 +39,7 @@ const useLocation = (shouldTrack, callback) => {
       subscriber.remove();
       setSubscriber(null);
     }
-  }, [shouldTrack]);
+  }, [shouldTrack, callback]);
 
   return [err];
 };
