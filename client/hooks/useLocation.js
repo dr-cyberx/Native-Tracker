@@ -9,35 +9,36 @@ import {
 
 const useLocation = (shouldTrack, callback) => {
   const [err, setErr] = useState(null);
-  const [subscriber, setSubscriber] = useState(null);
-
-  const startWatching = async () => {
-    try {
-      let { status } = await requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErr("Permission to access location was denied");
-        return;
-      }
-      const sub = await watchPositionAsync(
-        {
-          accuracy: Accuracy.BestForNavigation,
-          timeInterval: 1000,
-          distanceInterval: 10,
-        },
-        callback
-      );
-      setSubscriber(sub);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
+    let subscriber;
+    const startWatching = async () => {
+      try {
+        let { status } = await requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErr("Permission to access location was denied");
+          return;
+        }
+        subscriber = await watchPositionAsync(
+          {
+            accuracy: Accuracy.BestForNavigation,
+            timeInterval: 1000,
+            distanceInterval: 10,
+          },
+          callback
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     if (shouldTrack) {
       startWatching();
     } else {
-      subscriber.remove();
-      setSubscriber(null);
+      if (subscriber) {
+        subscriber.remove();
+      }
+      subscriber = null;
     }
 
     return () => {
