@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Input, Text } from "react-native-elements";
 import LocationContext from "../context/LocationContext";
+import useSaveTrack from "../../hooks/useSaveTrack";
 import Spacer from "./Spacer";
 import HorSpacer from "./HorSpacer";
 
 const TrackForm = () => {
   const { state, startRecording, stopRecording, changeName } =
     useContext(LocationContext);
+  const [saveTrack] = useSaveTrack();
 
   const { name, recording, locations } = state;
 
@@ -27,7 +29,9 @@ const TrackForm = () => {
           <Button title="Start Recording" onPress={startRecording} />
         )}
         {!recording && locations.length ? (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={saveTrack}
+          >
             <Text
               style={{
                 textAlign: "center",
