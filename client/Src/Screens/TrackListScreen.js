@@ -32,10 +32,15 @@ const TrackListScreen = ({ navigation }) => {
           return item._id;
         }}
         renderItem={({ item }) => (
-          <TouchableOpacity style={{ marginTop: 10 }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("TrackDetails");
+            }}
+            style={{ marginTop: 10 }}
+          >
             <ListItem key={item._id} bottomDivider>
               <ListItem.Content>
-                {console.log("item => ", item)}
+                {/* {console.log("item => ", item)} */}
                 <ListItem.Title>{item.name}</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
