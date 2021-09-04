@@ -70,6 +70,11 @@ export default function App() {
                   name="Home"
                   children={MainScreen}
                 />
+                <HomeStack.Screen
+                  options={{ headerShown: false }}
+                  name="TrackDetails"
+                  component={TrackDetailScreen}
+                />
               </HomeStack.Navigator>
             </NavigationContainer>
           </AuthProvider>
