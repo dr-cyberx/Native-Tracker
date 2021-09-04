@@ -47,7 +47,12 @@ const Map = () => {
           strokeColor="rgba(158,158,255,1.0)"
           fillColor="rgba(158, 158, 255, 0.3)"
         />
-        <Polyline lineDashPattern={[0]} coordinates={locations.map((loc) => loc.coords)} />
+        <Polyline
+          lineDashPattern={[0]}
+          coordinates={locations.map((loc) => loc.coords)}
+          strokeColor="#3498db"
+          strokeWidth={6}
+        />
       </MapView>
       <Spacer />
     </View>

@@ -1,13 +1,13 @@
 import React, { createContext } from "react";
-import TrackCreateScreen from "../Screens/TrackCreateScreen";
 import tracker from "../api/tracker";
 
 const TrackContext = createContext();
 
 export const TrackProvider = ({ children }) => {
   const fetchTrack = () => {};
-  const createTrack = (name, locations) => {
+  const createTrack = async (name, locations) => {
     console.log(name, locations.length);
+    await tracker.post('/track', {name , locations})
   };
   return (
     <TrackContext.Provider value={{ fetchTrack, createTrack }}>
