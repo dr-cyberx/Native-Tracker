@@ -30,6 +30,13 @@ const locationReducer = (state, action) => {
         ...state,
         name: action.payload,
       };
+
+    case "reset":
+      return {
+        ...state,
+        name: "",
+        locations: [],
+      };
     default:
       break;
   }
@@ -59,9 +66,20 @@ export const LocationProvider = ({ children }) => {
     }
   };
 
+  const reset = () => {
+    dispatch({ type: "reset" });
+  };
+
   return (
     <LocationContext.Provider
-      value={{ startRecording, stopRecording, addLocations, changeName, state }}
+      value={{
+        startRecording,
+        stopRecording,
+        addLocations,
+        changeName,
+        state,
+        reset,
+      }}
     >
       {children}
     </LocationContext.Provider>

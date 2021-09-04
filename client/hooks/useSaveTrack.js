@@ -5,12 +5,13 @@ import LocationContext from "../src/context/LocationContext";
 
 const useSaveTrack = () => {
   const { createTrack } = useContext(TrackContext);
-  const { state } = useContext(LocationContext);
+  const { state, reset } = useContext(LocationContext);
 
   const { locations, name } = state;
 
-  const saveTrack = () => {
-    createTrack(name, locations);
+  const saveTrack = async () => {
+    await createTrack(name, locations);
+    reset();
   };
 
   return [saveTrack];
