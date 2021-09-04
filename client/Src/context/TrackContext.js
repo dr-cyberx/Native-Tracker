@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import TrackCreateScreen from "../Screens/TrackCreateScreen";
+import tracker from "../api/tracker";
 
 const TrackContext = createContext();
 
