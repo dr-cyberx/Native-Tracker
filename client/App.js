@@ -23,7 +23,11 @@ const HomeStack = createNativeStackNavigator();
 const MainScreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="trackListFlow" component={TrackListScreen} />
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="trackListFlow"
+        component={TrackListScreen}
+      />
       <Tab.Screen
         options={{ headerShown: false }}
         name="TrackCreate"

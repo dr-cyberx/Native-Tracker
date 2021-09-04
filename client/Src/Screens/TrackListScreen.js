@@ -1,19 +1,49 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext } from "react";
+import { FlatList } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ListItem, Text } from "react-native-elements";
+import TrackContext from "../context/TrackContext";
 
 const TrackListScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>Track List Screen</Text>
+  const { state, fetchTrack } = useContext(TrackContext);
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("TrackCreate");
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchTrack();
+      console.log({ ...state });
+    });
+
+    return unsubscribe;
+  }, []);
+
+  return (
+    <SafeAreaView
+      style={{ marginTop: 25, paddingHorizontal: 25 }}
+      edges={["top", "right", "left", "bottom"]}
+    >
+      <Text style={{ textAlign: "center" }} h1>
+        Tracks Lists
+      </Text>
+      <FlatList
+        style={{ marginTop: 20 }}
+        data={state.track}
+        keyExtractor={(item) => {
+          return item._id;
         }}
-      >
-        <Text style={{ fontSize: 25, color: "lightblue" }}>Go to Track Create Screen </Text>
-      </TouchableOpacity>
-    </View>
+        renderItem={({ item }) => (
+          <TouchableOpacity style={{ marginTop: 10 }}>
+            <ListItem key={item._id} bottomDivider>
+              <ListItem.Content>
+                {console.log("item => ", item)}
+                <ListItem.Title>{item.name}</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
+          </TouchableOpacity>
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
