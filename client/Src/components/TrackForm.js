@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
-import { Button, Input } from "react-native-elements";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Input, Text } from "react-native-elements";
 import LocationContext from "../context/LocationContext";
 import Spacer from "./Spacer";
 import HorSpacer from "./HorSpacer";
@@ -9,7 +9,9 @@ const TrackForm = () => {
   const { state, startRecording, stopRecording, changeName } =
     useContext(LocationContext);
 
-  const { name, recording } = state;
+  const { name, recording, locations } = state;
+
+  // console.log(locations.length);
   return (
     <>
       <HorSpacer>
@@ -24,6 +26,20 @@ const TrackForm = () => {
         ) : (
           <Button title="Start Recording" onPress={startRecording} />
         )}
+        {!recording && locations.length ? (
+          <TouchableOpacity>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 25,
+                color: "#3498db",
+                marginTop: 20,
+              }}
+            >
+              Save track
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </HorSpacer>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import MapView, { Polyline } from "react-native-maps";
 import LocationContext from "../context/LocationContext";
 import { StyleSheet, View } from "react-native";
@@ -9,11 +9,16 @@ import useLocation from "../../hooks/useLocation";
 import Map from "../components/Map";
 
 const TrackCreateScreen = ({ navigation }) => {
-  const [shouldTrack, setShouldTrack] = useState(true);
   const { addLocations, state } = useContext(LocationContext);
-  const [err] = useLocation(shouldTrack, (loc) =>
-    addLocations(loc, state.recording)
+  const { recording, locations } = state;
+  const [shouldTrack, setShouldTrack] = useState(true);
+  const callback = useCallback(
+    (loc) => {
+      addLocations(loc, recording);
+    },
+    [recording]
   );
+  const [err] = useLocation(shouldTrack || recording, callback);
 
   // this code also may be like this
   // const [err] = useLocation(addLocations);

@@ -22,7 +22,7 @@ const locationReducer = (state, action) => {
     case "add_locations":
       return {
         ...state,
-        locations: [...state.location, action.payload],
+        locations: [...state.locations, action.payload],
       };
 
     case "change_name":
@@ -53,7 +53,6 @@ export const LocationProvider = ({ children }) => {
     dispatch({ type: "stop_recording" });
   };
   const addLocations = (location, recording) => {
-    console.log("add location func is here sir g !");
     dispatch({ type: "add_current_location", payload: location });
     if (recording) {
       dispatch({ type: "add_locations", payload: location });

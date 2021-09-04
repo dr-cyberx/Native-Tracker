@@ -14,7 +14,9 @@ import Spacer from "./Spacer";
 
 const Map = () => {
   const { state } = useContext(LocationContext);
-  const { currentLocation } = state;
+  const { currentLocation, locations } = state;
+
+  // console.log("location array: ", locations);
 
   if (!currentLocation) {
     return <ActivityIndicator size="large" style={{ marginTop: 200 }} />;
@@ -45,10 +47,9 @@ const Map = () => {
           strokeColor="rgba(158,158,255,1.0)"
           fillColor="rgba(158, 158, 255, 0.3)"
         />
-        {/* <Polyline /> */}
+        <Polyline lineDashPattern={[0]} coordinates={locations.map((loc) => loc.coords)} />
       </MapView>
       <Spacer />
-      
     </View>
   );
 };
