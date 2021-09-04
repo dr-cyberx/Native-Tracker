@@ -20,9 +20,10 @@ const locationReducer = (state, action) => {
         recording: false,
       };
     case "add_locations":
+      console.log("payload : ", action.payload)
       return {
         ...state,
-        locations: [...state.location, action.payload],
+        locations: [...state.locations, action.payload],
       };
 
     case "change_name":

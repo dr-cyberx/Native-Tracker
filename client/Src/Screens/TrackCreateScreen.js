@@ -9,8 +9,8 @@ import useLocation from "../../hooks/useLocation";
 import Map from "../components/Map";
 
 const TrackCreateScreen = ({ navigation }) => {
-  const [shouldTrack, setShouldTrack] = useState(true);
   const { addLocations, state } = useContext(LocationContext);
+  const [shouldTrack, setShouldTrack] = useState(true);
   const callback = useCallback(
     (loc) => {
       addLocations(loc, state.recording);
