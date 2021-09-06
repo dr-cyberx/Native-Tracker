@@ -17,18 +17,13 @@ export const TrackProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer);
 
   const fetchTrack = async () => {
-    try {
-      const response = await tracker.get("/track");
-      // console.log("response data => ", response);
-      // console.log("req for fetch");
-      dispatch({ type: "fetch_tracks", payload: response.data });
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await tracker.get("/track");
+    // console.log("response data => ", response.data)
+    dispatch({ type: "fetch_tracks", payload: response.data });
   };
 
   const createTrack = async (name, locations) => {
-    // console.log(name, locations.length);
+    console.log(name, locations[0]);
     await tracker.post("/track", { name, locations });
   };
   return (

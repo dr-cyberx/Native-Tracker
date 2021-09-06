@@ -9,20 +9,36 @@ const TrackDetailScreen = ({ route, navigation }) => {
   const { _id } = route.params;
   const { state } = useContext(TrackContext);
 
-  console.log(_id);
+  // console.log(state.track);
+
+  const LineTrack = state.track?.find((trk) => trk._id === _id);
+  const intialCoords = LineTrack.locations[0].coords;
+  console.log("bla bla ", LineTrack);
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "right", "bottom"]}>
-      <Text style={{ textAlign: "center" }} h2>
-        Track Details
+      <Text style={{ textAlign: "center", color: "#34495e" }} h2>
+        {LineTrack.name}
       </Text>
-      <MapView style={{ height: 400, width: 600, marginTop: 25 }}>
-        {/* <Polyline
+      <MapView
+        style={{ height: 400, width: 600, marginTop: 25 }}
+        initialRegion={{
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+          ...intialCoords,
+        }}
+        region={{
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+          ...intialCoords,
+        }}
+      >
+        <Polyline
           lineDashPattern={[0]}
-          coordinates={state.track.map((loc) => loc.coords)}
+          coordinates={LineTrack?.locations.map((loc) => loc.coords)}
           strokeColor="#3498db"
           strokeWidth={6}
-        /> */}
+        />
       </MapView>
     </SafeAreaView>
   );

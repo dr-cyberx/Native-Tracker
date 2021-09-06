@@ -16,25 +16,48 @@ import TrackDetailScreen from "./src/Screens/TrackDetailScreen";
 import AccountScreen from "./src/Screens/AccountScreen";
 import TrackListScreen from "./src/Screens/TrackListScreen";
 import FlashScreen from "./src/Screens/FlashScreen";
+import { Entypo, Ionicons, MaterialCommunityIcons  } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 
 const MainScreen = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: "#f5f6fa",
+      }}
+      screenOptions={{tabBarStyle:{
+        height:80
+      }}}
+    >
       <Tab.Screen
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => <Entypo name="list" size={30} color="black" />,
+          title:'',
+        }}
         name="trackListFlow"
         component={TrackListScreen}
       />
       <Tab.Screen
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <AntDesign name="pluscircleo" size={30} color="black" />
+          ),
+          title:'',
+        }}
         name="TrackCreate"
         component={TrackCreateScreen}
       />
       <Tab.Screen
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => <MaterialCommunityIcons name="account" size={30} color="black" />,
+          title:'',
+        }}
         name="Account"
         component={AccountScreen}
       />
@@ -71,6 +94,9 @@ export default function App() {
                   component={TrackDetailScreen}
                 />
                 <HomeStack.Screen
+                  options={{
+                    title: "My home",
+                  }}
                   options={{ headerShown: false }}
                   name="Home"
                   children={MainScreen}

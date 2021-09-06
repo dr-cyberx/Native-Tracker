@@ -22,7 +22,7 @@ const TrackListScreen = ({ navigation }) => {
       style={{ marginTop: 25, paddingHorizontal: 25 }}
       edges={["top", "right", "left", "bottom"]}
     >
-      <Text style={{ textAlign: "center" }} h1>
+      <Text style={{ textAlign: "center", color: "#34495e" }} h2>
         Tracks Lists
       </Text>
       {state?.track ? (
