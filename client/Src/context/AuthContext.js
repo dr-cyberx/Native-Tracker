@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }) => {
 
   const signin = async ({ email, password }, callback) => {
     try {
+      
       const response = await tracker.post("/signin", { email, password });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signup", payload: response.data.token });
@@ -76,6 +77,7 @@ export const AuthProvider = ({ children }) => {
         callback();
       }
     } catch (err) {
+      // console.log(err)
       dispatch({
         type: "add_Error",
         payload: "Something went wrong while Sign in",

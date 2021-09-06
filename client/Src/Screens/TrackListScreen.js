@@ -25,29 +25,30 @@ const TrackListScreen = ({ navigation }) => {
       <Text style={{ textAlign: "center" }} h1>
         Tracks Lists
       </Text>
-      <FlatList
-        style={{ marginTop: 20 }}
-        data={state.track}
-        keyExtractor={(item) => {
-          return item._id;
-        }}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("TrackDetails");
-            }}
-            style={{ marginTop: 10 }}
-          >
-            <ListItem key={item._id} bottomDivider>
-              <ListItem.Content>
-                {/* {console.log("item => ", item)} */}
-                <ListItem.Title>{item.name}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          </TouchableOpacity>
-        )}
-      />
+      {state?.track ? (
+        <FlatList
+          style={{ marginTop: 20 }}
+          data={state.track}
+          keyExtractor={(item) => {
+            return item._id;
+          }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("TrackDetails", { _id: item._id });
+              }}
+              style={{ marginTop: 10 }}
+            >
+              <ListItem key={item._id} bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Title>{item.name}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            </TouchableOpacity>
+          )}
+        />
+      ) : null}
     </SafeAreaView>
   );
 };

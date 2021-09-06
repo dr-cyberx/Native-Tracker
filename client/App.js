@@ -67,13 +67,13 @@ export default function App() {
                 />
                 <HomeStack.Screen
                   options={{ headerShown: false }}
-                  name="Home"
-                  children={MainScreen}
+                  name="TrackDetails"
+                  component={TrackDetailScreen}
                 />
                 <HomeStack.Screen
                   options={{ headerShown: false }}
-                  name="TrackDetails"
-                  component={TrackDetailScreen}
+                  name="Home"
+                  children={MainScreen}
                 />
               </HomeStack.Navigator>
             </NavigationContainer>
