@@ -23,7 +23,7 @@ export const TrackProvider = ({ children }) => {
   };
 
   const createTrack = async (name, locations) => {
-    // console.log(name, locations.length);
+    console.log(name, locations[0]);
     await tracker.post("/track", { name, locations });
   };
   return (

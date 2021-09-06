@@ -14,6 +14,7 @@ trackRoute.get("/track", async (req, res) => {
 
 trackRoute.post("/track", async (req, res) => {
   const { name, locations } = req.body;
+  // console.log(locations);
   console.log("entred track body");
 
   if (!name || !locations) {
@@ -25,6 +26,7 @@ trackRoute.post("/track", async (req, res) => {
   try {
     const track = new Track({ name, locations, userId: req.user._id });
     await track.save();
+    const newTrack = track.locations.map((trk) => console.log(trk));
     console.log("track created");
     res.status(200).send(track);
   } catch (err) {

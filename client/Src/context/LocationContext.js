@@ -62,6 +62,7 @@ export const LocationProvider = ({ children }) => {
   const addLocations = (location, recording) => {
     dispatch({ type: "add_current_location", payload: location });
     if (recording) {
+      console.log(">>>>>",location);
       dispatch({ type: "add_locations", payload: location });
     }
   };
